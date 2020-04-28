@@ -3,14 +3,34 @@
 This is WIP. The above instructions should work to build the Astrobee simulator on a clean Ubuntu 18.04 install.
 1. Clone the NASA Astrobee 18.04 merge request branch
 
-2. Install OpenCV with Contrib modules, version 3.3.1, and following:
+2. Install OpenCV with Contrib modules, version 3.2.0, and following:
     https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html
 
-    Make sure that, after cloning the repositories, you checkout the correct versions with
+    Make sure that, after cloning the repositories, you checkout the correct versions on both of them by doing
+    ```bash
     git checkout 3.2.0
+    ```
 
     Build with:
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -DINSTALL_C_EXAMPLES=ON -DINSTALL_PYTHON_EXAMPLES=ON -DBUILD_EXAMPLES=ON -DOPENCV_ENABLED_NONFREE=YES ..
+    ```bash
+    OCV_INSTALL_DIR=whatever-you-want
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${OCV_INSTALL_DIR} -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -DINSTALL_PYTHON_EXAMPLES=ON -DOPENCV_ENABLED_NONFREE=YES -DENABLE_PRECOMPILED_HEADERS=OFF ..
+    ```
+    
+    Suggested `OCV_INSTALL_DIR=${HOME}/.local`
+    
+    If you get an error regarding `CUDA_nppi_LIBRARY (ADVANCED)` either setup
+    your CUDA drivers, or remove using the flag `-DWITH_CUDA=OFF`.
+    
+    Now just run `make`, and wait for it to compile (it might hang for a bit at
+    the end). And then just `make install`.
+    
+Make sure OpenCV is correctly linked inside the cloned repos:
+- libdbow2 
+- libdbowdlib
+- libalvar
+
+
 
 3. Build and install Luajit 2.0.5 from
   https://luajit.org/download.html  
