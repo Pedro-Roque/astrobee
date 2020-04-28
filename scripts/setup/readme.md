@@ -30,8 +30,6 @@ Make sure OpenCV is correctly linked inside the cloned repos:
 - libdbowdlib
 - libalvar
 
-
-
 3. Build and install Luajit 2.0.5 from
   https://luajit.org/download.html  
 
